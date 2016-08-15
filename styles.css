@@ -1,0 +1,74 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	background: grey;
+}
+
+button {
+	background: red;
+	border: none;
+	border-radius: 5px;
+	box-shadow: none;
+	padding: 10px;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+.button-wrap {
+	padding-top: 2rem;
+	width: 100%;
+}
+
+.next,
+.submit
+{
+	float: right;
+}
+
+.prev {
+	float: left;
+}
+
+.quiz-wrap,
+.outro-wrap,
+.submit,
+.reset,
+.prev {
+  display: none;
+}
+
+.content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+   -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+     -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+	background: white;
+	border-radius: 10px;
+	padding: 1rem;
+	width: 100%;
+	max-width: 400px;
+	text-align: center;
+}
+
+.quiz-choices li {
+	display: block;
+	padding: 1rem 0;
+	text-align: left;
+}
+
+.quiz-choices li input {
+	float: left;
+	margin-right: 1rem;
+}
+
+.error-message {
+	display: none;
+	font-weight: bold;
+	color: red;
+}
+
