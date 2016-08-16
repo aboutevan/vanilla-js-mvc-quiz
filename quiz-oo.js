@@ -33,7 +33,7 @@ var radiosContainer = document.getElementById('radios');
 
 // Utility Functions ///////////////////////////////////
 
-var Utils = {
+var utils = {
 	inheritPrototype: function (child, parent) {
 		var parentCopy = Object.create(parent.prototype);
 		parentCopy.constructor = child;
@@ -151,8 +151,8 @@ QuizCtrl.prototype.getQuizData = function () {
 
 QuizCtrl.prototype.startQuiz = function () {
 	this.displayQuestionView.generateQuestion(this.quizData.currentQuestion);
-	Utils.toggleVisibility(introWrap, false);
-	Utils.toggleVisibility(quizWrap, true);
+	utils.toggleVisibility(introWrap, false);
+	utils.toggleVisibility(quizWrap, true);
 };
 
 // takes care of evertyhing when the question moves forward
@@ -163,12 +163,12 @@ QuizCtrl.prototype.nextQuestion = function () {
 	this.displayQuestionView.generateQuestion(this.quizData.currentQuestion);
 
 	if (this.quizData.currentQuestion > 0) {
-		Utils.toggleVisibility(prev, true);
+		utils.toggleVisibility(prev, true);
 	}
 
 	if (this.quizData.currentQuestion === this.quizData.questions.length - 1) {
-		Utils.toggleVisibility(next, false);
-		Utils.toggleVisibility(submit, true);
+		utils.toggleVisibility(next, false);
+		utils.toggleVisibility(submit, true);
 	}
 };
 
@@ -178,19 +178,19 @@ QuizCtrl.prototype.prevQuestion = function () {
 	console.log(this.quizData.currentQuestion);
 
 	if (this.quizData.currentQuestion === this.quizData.questions.length - 2) {
-		Utils.toggleVisibility(next, true);
-		Utils.toggleVisibility(submit, false);
+		utils.toggleVisibility(next, true);
+		utils.toggleVisibility(submit, false);
 	}
 
 	if (this.quizData.currentQuestion === 0) {
-		Utils.toggleVisibility(prev, false);
+		utils.toggleVisibility(prev, false);
 	}
 	console.log(this.quizData.userAnswers);
 };
 
 QuizCtrl.prototype.endQuiz = function () {
 	var checkedValue = this.nextView.checkedInput;
-	Utils.toggleVisibility(quizWrap, false);
+	utils.toggleVisibility(quizWrap, false);
 	this.quizData.storeUserAnswers(checkedValue);
 	console.log(this.quizData.correctAnswers);
 	console.log(this.quizData.userAnswers);
@@ -238,7 +238,7 @@ function StartView (quizCtrl) {
 	this.addEvents(start, this._buttonEvent);
 }
 
-Utils.inheritPrototype(StartView, ButtonsView);
+utils.inheritPrototype(StartView, ButtonsView);
 
 StartView.prototype._buttonEvent = function (self) {
 	self.quizCtrl.startQuiz();
@@ -251,7 +251,7 @@ function NextView (quizCtrl) {
 	this.addEvents(next, this._buttonEvent);
 }
 
-Utils.inheritPrototype(NextView, ButtonsView);
+utils.inheritPrototype(NextView, ButtonsView);
 
 NextView.prototype._buttonEvent = function (self) {
 	var radios = document.getElementsByClassName('question-radio');
@@ -276,7 +276,7 @@ function PrevView (quizCtrl) {
 	this.addEvents(prev, this._buttonEvent);
 }
 
-Utils.inheritPrototype(PrevView, ButtonsView);
+utils.inheritPrototype(PrevView, ButtonsView);
 
 PrevView.prototype._buttonEvent = function (self) {
 	self.quizCtrl.prevQuestion();
@@ -289,7 +289,7 @@ function SubmitView (quizCtrl) {
 	this.addEvents(submit, this._buttonEvent);
 }
 
-Utils.inheritPrototype(SubmitView, ButtonsView);
+utils.inheritPrototype(SubmitView, ButtonsView);
 
 SubmitView.prototype._buttonEvent = function (self) {
 	self.quizCtrl.endQuiz();
@@ -309,13 +309,13 @@ DisplayQuestionView.prototype.generateQuestion = function (currentQuestion) {
 	radiosContainer.innerHTML = '';
 	quizQuestion.innerHTML = '';
 	quizQuestion.appendChild(
-		Utils.createEl('h1', {
+		utils.createEl('h1', {
 			innerHTML: this.questionSet[currentQuestion].question
 		}));
 	// answers
 	this.questionSet[currentQuestion].eachChoice(function (choice) {
 		radiosContainer.appendChild(
-			Utils.createEl('label', {
+			utils.createEl('label', {
 				id: 'label--choice',
 				className: 'question-radio-label',
 				htmlFor: 'choice--',
@@ -323,7 +323,7 @@ DisplayQuestionView.prototype.generateQuestion = function (currentQuestion) {
 			})
     )
     .appendChild(
-			Utils.createEl('input', {
+			utils.createEl('input', {
 				type: 'radio',
 				className: 'question-radio',
 				name: 'q',

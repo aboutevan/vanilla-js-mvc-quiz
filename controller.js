@@ -20,14 +20,14 @@ QuizCtrl.prototype.getQuizData = function () {
 
 QuizCtrl.prototype.startQuiz = function () {
 	this.displayQuestionView.generateQuestion(0);
-	Utils.toggleVisibility(introWrap, false);
-	Utils.toggleVisibility(quizWrap, true);
+	utils.toggleVisibility(introWrap, false);
+	utils.toggleVisibility(quizWrap, true);
 };
 
 // takes care of evertyhing when the question moves forward
 QuizCtrl.prototype.nextQuestion = function (userAnswer) {
 	var nextQuestion = this.quizData.moveForward(userAnswer);
-	Utils.toggleVisibility(prev, true);
+	utils.toggleVisibility(prev, true);
 
 	if (this.quizData.currentQuestion === this.quizData.questions.length - 1) {
 		this.nextView.updateText('submit')
@@ -48,14 +48,14 @@ QuizCtrl.prototype.prevQuestion = function () {
 	this.nextView.updateText('Next')
 
 	if (this.quizData.currentQuestion === 0) {
-		Utils.toggleVisibility(prev, false);
+		utils.toggleVisibility(prev, false);
 	}
 };
 
 QuizCtrl.prototype.endQuiz = function () {
 	// var checkedValue = this.submitView.checkedInput;
-	Utils.toggleVisibility(quizWrap, false);
-	Utils.toggleVisibility(outroWrap, true);
+	utils.toggleVisibility(quizWrap, false);
+	utils.toggleVisibility(outroWrap, true);
 	// this.quizData.storeUserAnswers(checkedValue);
 
 	// for (var i = this.quizData.correctAnswers.length - 1; i >= 0; i--) {
@@ -70,12 +70,12 @@ QuizCtrl.prototype.endQuiz = function () {
   //
   if (this.quizData.incorrectAnswers.length > 0) {
   	userScore.appendChild(
-  		Utils.createEl('h3', {
+  		utils.createEl('h3', {
   			innerHTML: 'Questions you missed:'
   	}));
   	this.quizData.incorrectAnswers.forEach(function (index) {
   		userScore.appendChild(
-  			Utils.createEl('div', {
+  			utils.createEl('div', {
 	  		innerHTML: '<p>' + this.quizData.questions[index].question + '</p> <p> Correct answer: ' + this.quizData.questions[index].choices[this.quizData.questions[index].answer] + '</p>'
 	  	}));
   	}, this);

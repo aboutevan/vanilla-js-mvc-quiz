@@ -35,7 +35,7 @@ var radiosContainer = document.getElementById('radios');
 
 // Utility Functions ///////////////////////////////////
 
-var Utils = {
+var utils = {
 	inheritPrototype: function (child, parent) {
 		var parentCopy = Object.create(parent.prototype);
 		parentCopy.constructor = child;
@@ -50,12 +50,16 @@ var Utils = {
 		}
 		return el;
 	},
-	toggleVisibility: function (el, hide) {
+	toggleVisibility: function (el, shouldShow) {
 		// this might need refactor
-		el.style.display = 'block';
+		if (!el.className.match(/(?:^|\s)visible(?!\S)/)) {
+			el.className += ' visible';
+		}
 
-		if (!hide) {
-			el.style.display = 'none';
+		if (!shouldShow) {
+			if (el.className.match(/(?:^|\s)visible(?!\S)/)) {
+				el.className = el.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' )
+			}
 		}
 	}
 };

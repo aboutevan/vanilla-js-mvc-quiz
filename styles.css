@@ -72,3 +72,10 @@ button:hover {
 	color: red;
 }
 
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+}

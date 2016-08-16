@@ -29,7 +29,7 @@ function StartView (quizCtrl) {
 	this.addEvents(start, this._buttonEvent);
 }
 
-Utils.inheritPrototype(StartView, ButtonsView);
+utils.inheritPrototype(StartView, ButtonsView);
 
 StartView.prototype._buttonEvent = function (self) {
 	self.quizCtrl.startQuiz();
@@ -45,7 +45,7 @@ function NextView (quizCtrl) {
 	}
 }
 
-Utils.inheritPrototype(NextView, ButtonsView);
+utils.inheritPrototype(NextView, ButtonsView);
 
 NextView.prototype._buttonEvent = function (self) {
 	var radios = document.getElementsByClassName('question-radio');
@@ -72,7 +72,7 @@ function PrevView (quizCtrl) {
 	this.addEvents(prev, this._buttonEvent);
 }
 
-Utils.inheritPrototype(PrevView, ButtonsView);
+utils.inheritPrototype(PrevView, ButtonsView);
 
 PrevView.prototype._buttonEvent = function (self) {
 	error.style.display = 'none'
@@ -86,7 +86,7 @@ function SubmitView (quizCtrl) {
 	this.addEvents(submit, this._buttonEvent);
 }
 
-Utils.inheritPrototype(SubmitView, ButtonsView);
+utils.inheritPrototype(SubmitView, ButtonsView);
 
 SubmitView.prototype._buttonEvent = function (self) {
 	var isChecked = null;
@@ -121,16 +121,16 @@ DisplayQuestionView.prototype.generateQuestion = function (currentQuestion) {
 	radiosContainer.innerHTML = '';
 	quizQuestion.innerHTML = '';
 	quizQuestion.appendChild(
-		Utils.createEl('h1', {
+		utils.createEl('h1', {
 			innerHTML: this.questionSet[currentQuestion].question
 		}));
 	// answers
 	this.questionSet[currentQuestion].eachChoice(function (choice) {
 		radiosContainer.appendChild(
-			Utils.createEl('li')
+			utils.createEl('li')
     )
     .appendChild(
-    	Utils.createEl('label', {
+    	utils.createEl('label', {
     		id: 'label--choice',
     		className: 'question-radio-label',
     		htmlFor: 'choice--',
@@ -138,7 +138,7 @@ DisplayQuestionView.prototype.generateQuestion = function (currentQuestion) {
     	})
     )
     .appendChild(
-			Utils.createEl('input', {
+			utils.createEl('input', {
 				type: 'radio',
 				className: 'question-radio',
 				name: 'q',
