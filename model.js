@@ -51,11 +51,9 @@ var utils = {
 		return el;
 	},
 	toggleVisibility: function (el, shouldShow) {
-		// this might need refactor
 		if (!el.className.match(/(?:^|\s)visible(?!\S)/)) {
 			el.className += ' visible';
 		}
-
 		if (!shouldShow) {
 			if (el.className.match(/(?:^|\s)visible(?!\S)/)) {
 				el.className = el.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' )
