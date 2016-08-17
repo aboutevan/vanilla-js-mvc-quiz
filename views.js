@@ -15,16 +15,11 @@ ButtonsView.prototype.addEvents = function (el, event) {
 	});
 };
 
-ButtonsView.prototype.toggleVisibility = function (el, hide) {
-	el.style.display = 'block';
-	if (!hide) {
-		el.style.display = 'none';
-	}
-};
-
 //---------------------------------------------------------
 
 function StartView (quizCtrl) {
+	var start = utils.getId('start');
+
 	ButtonsView.call(this, quizCtrl);
 	this.addEvents(start, this._buttonEvent);
 }
@@ -38,8 +33,11 @@ StartView.prototype._buttonEvent = function (self) {
 // Handles interaction with the next button.  WHen clicked, it wwill
 // check for checked radio, and then run controller function
 function NextView (quizCtrl) {
+	var next = utils.getId('next')
+
 	ButtonsView.call(this, quizCtrl);
 	this.addEvents(next, this._buttonEvent);
+
 	this.updateText = function (text) {
 		next.innerHTML = text
 	}
@@ -49,6 +47,7 @@ utils.inheritPrototype(NextView, ButtonsView);
 
 NextView.prototype._buttonEvent = function (self) {
 	var radios = document.getElementsByClassName('question-radio');
+	var error = utils.getId('error-message')
 
 	self.checkedInput = null;
 
@@ -68,6 +67,8 @@ NextView.prototype._buttonEvent = function (self) {
 
 //---------------------------------------------------------
 function PrevView (quizCtrl) {
+	var prev = utils.getId('prev')
+
 	ButtonsView.call(this, quizCtrl);
 	this.addEvents(prev, this._buttonEvent);
 }
@@ -75,41 +76,13 @@ function PrevView (quizCtrl) {
 utils.inheritPrototype(PrevView, ButtonsView);
 
 PrevView.prototype._buttonEvent = function (self) {
-	error.style.display = 'none'
+	var error = utils.getId('error-message');
+	error.style.display = 'none';
 	self.quizCtrl.prevQuestion();
 };
 
 //---------------------------------------------------------
 
-function SubmitView (quizCtrl) {
-	ButtonsView.call(this, quizCtrl);
-	this.addEvents(submit, this._buttonEvent);
-}
-
-utils.inheritPrototype(SubmitView, ButtonsView);
-
-SubmitView.prototype._buttonEvent = function (self) {
-	var isChecked = null;
-
-	for (var i = radios.length - 1; i >= 0; i--) {
-		if (radios[i].checked) {
-			isChecked = true;
-			self.checkedInput = i;
-		}
-	}
-
-	if (isChecked) {
-		self.quizCtrl.nextQuestion();
-		error.style.display = 'none'
-	} else {
-		error.style.display = 'block'
-	}
-	self.quizCtrl.endQuiz();
-};
-
-// function OutroView (quizCtrl) {
-// 	ButtonsView.call(this, quizCtrl);
-// }
 //---------------------------------------------------------
 function DisplayQuestionView (quizCtrl) {
 	ButtonsView.call(this, quizCtrl);
@@ -117,6 +90,8 @@ function DisplayQuestionView (quizCtrl) {
 }
 
 DisplayQuestionView.prototype.generateQuestion = function (currentQuestion) {
+	var radiosContainer = utils.getId('radios')
+	var quizQuestion = utils.getId('quiz-question')
 	// question
 	radiosContainer.innerHTML = '';
 	quizQuestion.innerHTML = '';

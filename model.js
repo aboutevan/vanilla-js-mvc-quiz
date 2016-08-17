@@ -16,26 +16,13 @@ var theQuestions = [
 	}
 ];
 
-// var quiz = document.getElementById('quiz');
-var quizWrap = document.getElementById('quiz-wrap');
-var introWrap = document.getElementById('intro-wrap');
-var outroWrap = document.getElementById('outro-wrap');
-var userScore = document.getElementById('userScore');
-// var generatedQuizContent = document.getElementById('generated-quiz-content');
-// var buttons = document.getElementById('buttons');
-var start = document.getElementById('start');
-var next = document.getElementById('next');
-var prev = document.getElementById('prev');
-var error = document.getElementById('error-message');
-// var restart = document.getElementById('reset');
-var submit = document.getElementById('submit');
-// var ans = document.createElement('radio');
-var quizQuestion = document.getElementById('quiz-question');
-var radiosContainer = document.getElementById('radios');
-
 // Utility Functions ///////////////////////////////////
 
+
 var utils = {
+	getId: function (id) {
+		return document.getElementById(id)
+	},
 	inheritPrototype: function (child, parent) {
 		var parentCopy = Object.create(parent.prototype);
 		parentCopy.constructor = child;

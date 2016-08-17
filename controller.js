@@ -11,7 +11,6 @@ function QuizCtrl (data) {
 	this.startView = new StartView(this);
 	this.nextView = new NextView(this);
 	this.prevView = new PrevView(this);
-	this.submitView = new SubmitView(this);
 	this.displayQuestionView = new DisplayQuestionView(this);
 }
 
@@ -19,14 +18,19 @@ QuizCtrl.prototype.getQuizData = function () {
 };
 
 QuizCtrl.prototype.startQuiz = function () {
+	var introWrap = utils.getId('intro-wrap')
+	var quizWrap = utils.getId('quiz-wrap')
+
 	this.displayQuestionView.generateQuestion(0);
-	utils.toggleVisibility(introWrap, false);
+	utils.toggleVisibility(introWrap, false)
 	utils.toggleVisibility(quizWrap, true);
 };
 
 // takes care of evertyhing when the question moves forward
 QuizCtrl.prototype.nextQuestion = function (userAnswer) {
+	var prev = utils.getId('prev')
 	var nextQuestion = this.quizData.moveForward(userAnswer);
+
 	utils.toggleVisibility(prev, true);
 
 	if (this.quizData.currentQuestion === this.quizData.questions.length - 1) {
@@ -43,6 +47,8 @@ QuizCtrl.prototype.nextQuestion = function (userAnswer) {
 };
 
 QuizCtrl.prototype.prevQuestion = function () {
+	var prev = utils.getId('prev')
+
 	this.quizData.moveBackward();
 	this.displayQuestionView.generateQuestion(this.quizData.currentQuestion);
 	this.nextView.updateText('Next')
@@ -53,12 +59,13 @@ QuizCtrl.prototype.prevQuestion = function () {
 };
 
 QuizCtrl.prototype.endQuiz = function () {
-	// var checkedValue = this.submitView.checkedInput;
+	var introWrap = utils.getId('intro-wrap');
+	var outroWrap = utils.getId('outro-wrap');
+	var quizWrap = utils.getId('quiz-wrap');
+
 	utils.toggleVisibility(quizWrap, false);
 	utils.toggleVisibility(outroWrap, true);
-	// this.quizData.storeUserAnswers(checkedValue);
 
-	// for (var i = this.quizData.correctAnswers.length - 1; i >= 0; i--) {
 	for (var i = 0; i < this.quizData.correctAnswers.length; i++) {
 		if (this.quizData.userAnswers[i] === this.quizData.correctAnswers[i]) {
 			this.quizData.numCorrect++;
