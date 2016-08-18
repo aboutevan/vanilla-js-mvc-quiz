@@ -1,6 +1,6 @@
 // CONTROLLER - handling business logic
 // which is start quiz, next question, prev question, and submit quiz
-// this is coordinating model and ButtonsView
+// this is coordinating model and BaseViewConstructor
 
 // Quiz controller funcc
 
@@ -62,6 +62,7 @@ QuizCtrl.prototype.endQuiz = function () {
 	var introWrap = utils.getId('intro-wrap');
 	var outroWrap = utils.getId('outro-wrap');
 	var quizWrap = utils.getId('quiz-wrap');
+	var userScore = utils.getId('user-score');
 
 	utils.toggleVisibility(quizWrap, false);
 	utils.toggleVisibility(outroWrap, true);

@@ -15,29 +15,6 @@ button:hover {
 	cursor: pointer;
 }
 
-.button-wrap {
-	padding-top: 2rem;
-	width: 100%;
-}
-
-.next,
-.submit
-{
-	float: right;
-}
-
-.prev {
-	float: left;
-}
-
-.quiz-wrap,
-.outro-wrap,
-.submit,
-.reset,
-.prev {
-  display: none;
-}
-
 .content {
 	position: absolute;
 	top: 50%;
@@ -55,18 +32,38 @@ button:hover {
 	text-align: center;
 }
 
-.quiz-choices li {
+.button-wrap {
+	padding-top: 2rem;
+	width: 100%;
+}
+
+.quiz-wrap__button--next
+{
+	float: right;
+}
+
+.quiz-wrap__button--prev {
+	float: left;
+}
+
+.quiz-wrap,
+.outro-wrap,
+.quiz-wrap__button--prev {
+  display: none;
+}
+
+.quiz-wrap__list li {
 	display: block;
 	padding: 1rem 0;
 	text-align: left;
 }
 
-.quiz-choices li input {
+.quiz-wrap__list li input {
 	float: left;
 	margin-right: 1rem;
 }
 
-.error-message {
+.quiz-wrap__error {
 	display: none;
 	font-weight: bold;
 	color: red;

@@ -1,13 +1,13 @@
 // VIEWS - presentation
-// handles all manipulation of the DOM, and also handles events triggered on the DOM.  Make a ButtonsView for each section of the application
+// handles all manipulation of the DOM, and also handles events triggered on the DOM.
 
-// The ButtonsView is a constructor that sets some properties and methods useful for all views. Excplicitylly passing quizCtrl in the QuizCtrl constructor, but ButtonsView never called in QuizCtrl, only child objects
+// The BaseViewConstructor is a constructor that sets some properties and methods useful for all views. 
 
-function ButtonsView (quizCtrl) {
+function BaseViewConstructor (quizCtrl) {
 	this.quizCtrl = quizCtrl;
 }
 
-ButtonsView.prototype.addEvents = function (el, event) {
+BaseViewConstructor.prototype.addEvents = function (el, event) {
 	var self = this;
 	el.addEventListener('click', function (e) {
 		e.preventDefault();
@@ -19,12 +19,11 @@ ButtonsView.prototype.addEvents = function (el, event) {
 
 function StartView (quizCtrl) {
 	var start = utils.getId('start');
-
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.addEvents(start, this._buttonEvent);
 }
 
-utils.inheritPrototype(StartView, ButtonsView);
+utils.inheritPrototype(StartView, BaseViewConstructor);
 
 StartView.prototype._buttonEvent = function (self) {
 	self.quizCtrl.startQuiz();
@@ -35,7 +34,7 @@ StartView.prototype._buttonEvent = function (self) {
 function NextView (quizCtrl) {
 	var next = utils.getId('next')
 
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.addEvents(next, this._buttonEvent);
 
 	this.updateText = function (text) {
@@ -43,7 +42,7 @@ function NextView (quizCtrl) {
 	}
 }
 
-utils.inheritPrototype(NextView, ButtonsView);
+utils.inheritPrototype(NextView, BaseViewConstructor);
 
 NextView.prototype._buttonEvent = function (self) {
 	var radios = document.getElementsByClassName('question-radio');
@@ -69,11 +68,11 @@ NextView.prototype._buttonEvent = function (self) {
 function PrevView (quizCtrl) {
 	var prev = utils.getId('prev')
 
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.addEvents(prev, this._buttonEvent);
 }
 
-utils.inheritPrototype(PrevView, ButtonsView);
+utils.inheritPrototype(PrevView, BaseViewConstructor);
 
 PrevView.prototype._buttonEvent = function (self) {
 	var error = utils.getId('error-message');
@@ -85,7 +84,7 @@ PrevView.prototype._buttonEvent = function (self) {
 
 //---------------------------------------------------------
 function DisplayQuestionView (quizCtrl) {
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.questionSet = this.quizCtrl.quizData.questions;
 }
 

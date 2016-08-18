@@ -130,7 +130,7 @@ QuizData.prototype.addQuestions = function (data) {
 
 // CONTROLLER - handling business logic
 // which is start quiz, next question, prev question, and submit quiz
-// this is coordinating model and ButtonsView
+// this is coordinating model and BaseViewConstructor
 
 // Quiz controller funcc
 
@@ -208,15 +208,15 @@ QuizCtrl.prototype.endQuiz = function () {
 	}, this);
 };
 // VIEWS - presentation
-// handles all manipulation of the DOM, and also handles events triggered on the DOM.  Make a ButtonsView for each section of the application
+// handles all manipulation of the DOM, and also handles events triggered on the DOM.  Make a BaseViewConstructor for each section of the application
 
-// The ButtonsView is a constructor that sets some properties and methods useful for all views. Excplicitylly passing quizCtrl in the QuizCtrl constructor, but ButtonsView never called in QuizCtrl, only child objects
+// The BaseViewConstructor is a constructor that sets some properties and methods useful for all views. Excplicitylly passing quizCtrl in the QuizCtrl constructor, but BaseViewConstructor never called in QuizCtrl, only child objects
 
-function ButtonsView (quizCtrl) {
+function BaseViewConstructor (quizCtrl) {
 	this.quizCtrl = quizCtrl;
 }
 
-ButtonsView.prototype.addEvents = function (el, event) {
+BaseViewConstructor.prototype.addEvents = function (el, event) {
 	var self = this;
 	el.addEventListener('click', function (e) {
 		e.preventDefault();
@@ -224,7 +224,7 @@ ButtonsView.prototype.addEvents = function (el, event) {
 	});
 };
 
-ButtonsView.prototype.toggleVisibility = function (el, hide) {
+BaseViewConstructor.prototype.toggleVisibility = function (el, hide) {
 	el.style.display = 'block';
 	if (!hide) {
 		el.style.display = 'none';
@@ -234,11 +234,11 @@ ButtonsView.prototype.toggleVisibility = function (el, hide) {
 //---------------------------------------------------------
 
 function StartView (quizCtrl) {
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.addEvents(start, this._buttonEvent);
 }
 
-utils.inheritPrototype(StartView, ButtonsView);
+utils.inheritPrototype(StartView, BaseViewConstructor);
 
 StartView.prototype._buttonEvent = function (self) {
 	self.quizCtrl.startQuiz();
@@ -247,11 +247,11 @@ StartView.prototype._buttonEvent = function (self) {
 // Handles interaction with the next button.  WHen clicked, it wwill
 // check for checked radio, and then run controller function
 function NextView (quizCtrl) {
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.addEvents(next, this._buttonEvent);
 }
 
-utils.inheritPrototype(NextView, ButtonsView);
+utils.inheritPrototype(NextView, BaseViewConstructor);
 
 NextView.prototype._buttonEvent = function (self) {
 	var radios = document.getElementsByClassName('question-radio');
@@ -272,11 +272,11 @@ NextView.prototype._buttonEvent = function (self) {
 
 //---------------------------------------------------------
 function PrevView (quizCtrl) {
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.addEvents(prev, this._buttonEvent);
 }
 
-utils.inheritPrototype(PrevView, ButtonsView);
+utils.inheritPrototype(PrevView, BaseViewConstructor);
 
 PrevView.prototype._buttonEvent = function (self) {
 	self.quizCtrl.prevQuestion();
@@ -285,22 +285,22 @@ PrevView.prototype._buttonEvent = function (self) {
 //---------------------------------------------------------
 
 function SubmitView (quizCtrl) {
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.addEvents(submit, this._buttonEvent);
 }
 
-utils.inheritPrototype(SubmitView, ButtonsView);
+utils.inheritPrototype(SubmitView, BaseViewConstructor);
 
 SubmitView.prototype._buttonEvent = function (self) {
 	self.quizCtrl.endQuiz();
 };
 
 // function OutroView (quizCtrl) {
-// 	ButtonsView.call(this, quizCtrl);
+// 	BaseViewConstructor.call(this, quizCtrl);
 // }
 //---------------------------------------------------------
 function DisplayQuestionView (quizCtrl) {
-	ButtonsView.call(this, quizCtrl);
+	BaseViewConstructor.call(this, quizCtrl);
 	this.questionSet = this.quizCtrl.quizData.questions;
 }
 
