@@ -18,7 +18,6 @@ var theQuestions = [
 
 // Utility Functions ///////////////////////////////////
 
-
 var utils = {
 	getId: function (id) {
 		return document.getElementById(id)

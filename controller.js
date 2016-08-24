@@ -1,98 +1,112 @@
-// CONTROLLER - handling business logic
-// which is start quiz, next question, prev question, and submit quiz
-// this is coordinating model and BaseViewConstructor
+(function (window) {
 
-// Quiz controller funcc
+	// CONTROLLER - handling business logic
+	// which is start quiz, next question, prev question, and submit quiz
+	// this is coordinating model and BaseViewConstructor
 
-function QuizCtrl (data) {
-	this.data = data;
+	// Quiz controller funcc
 
-	this.quizData = new QuizData(this.data);
-	this.startView = new StartView(this);
-	this.nextView = new NextView(this);
-	this.prevView = new PrevView(this);
-	this.displayQuestionView = new DisplayQuestionView(this);
-}
+	function QuizCtrl (model, view) {
+		// this.data = data;
 
-QuizCtrl.prototype.getQuizData = function () {
-};
+		this.self = this;
 
-QuizCtrl.prototype.startQuiz = function () {
-	var introWrap = utils.getId('intro-wrap')
-	var quizWrap = utils.getId('quiz-wrap')
+		this.model = model;
+		this.view = view;
 
-	this.displayQuestionView.generateQuestion(0);
-	utils.toggleVisibility(introWrap, false)
-	utils.toggleVisibility(quizWrap, true);
-};
-
-// takes care of evertyhing when the question moves forward
-QuizCtrl.prototype.nextQuestion = function (userAnswer) {
-	var prev = utils.getId('prev')
-	var nextQuestion = this.quizData.moveForward(userAnswer);
-
-	utils.toggleVisibility(prev, true);
-
-	if (this.quizData.currentQuestion === this.quizData.questions.length - 1) {
-		this.nextView.updateText('submit')
-	} else {
-		this.nextView.updateText('Next')
+		// this.quizData = new QuizData(this.model);
+		// this.startView = new StartView(this);
+		// this.nextView = new NextView(this);
+		// this.prevView = new PrevView(this);
+		// this.displayQuestionView = new DisplayQuestionView(this);
 	}
 
-	if (nextQuestion) {
-		this.displayQuestionView.generateQuestion(this.quizData.currentQuestion);
-	} else {
-		this.endQuiz();
-	}
-};
+	QuizCtrl.prototype.getQuizData = function () {
+	};
 
-QuizCtrl.prototype.prevQuestion = function () {
-	var prev = utils.getId('prev')
+	QuizCtrl.prototype.startQuiz = function () {
+		var introWrap = utils.getId('intro-wrap')
+		var quizWrap = utils.getId('quiz-wrap')
 
-	this.quizData.moveBackward();
-	this.displayQuestionView.generateQuestion(this.quizData.currentQuestion);
-	this.nextView.updateText('Next')
+		this.displayQuestionView.generateQuestion(0);
+		utils.toggleVisibility(introWrap, false)
+		utils.toggleVisibility(quizWrap, true);
+	};
 
-	if (this.quizData.currentQuestion === 0) {
-		utils.toggleVisibility(prev, false);
-	}
-};
+	// takes care of evertyhing when the question moves forward
+	QuizCtrl.prototype.nextQuestion = function (userAnswer) {
+		var prev = utils.getId('prev')
+		var nextQuestion = this.quizData.moveForward(userAnswer);
 
-QuizCtrl.prototype.endQuiz = function () {
-	var introWrap = utils.getId('intro-wrap');
-	var outroWrap = utils.getId('outro-wrap');
-	var quizWrap = utils.getId('quiz-wrap');
-	var userScore = utils.getId('user-score');
+		utils.toggleVisibility(prev, true);
 
-	utils.toggleVisibility(quizWrap, false);
-	utils.toggleVisibility(outroWrap, true);
-
-	for (var i = 0; i < this.quizData.correctAnswers.length; i++) {
-		if (this.quizData.userAnswers[i] === this.quizData.correctAnswers[i]) {
-			this.quizData.numCorrect++;
+		if (this.quizData.currentQuestion === this.quizData.questions.length - 1) {
+			this.nextView.updateText('submit')
 		} else {
-			this.quizData.incorrectAnswers.push(i);
+			this.nextView.updateText('Next')
 		}
-	}
-	userScore.innerHTML = '<h3>You got ' + this.quizData.numCorrect + '/' + theQuestions.length + ' questions correct, that\'s ' + (Math.round(this.quizData.numCorrect / theQuestions.length * 100)) + '%</h3>'
-  //
-  if (this.quizData.incorrectAnswers.length > 0) {
-  	userScore.appendChild(
-  		utils.createEl('h3', {
-  			innerHTML: 'Questions you missed:'
-  	}));
-  	this.quizData.incorrectAnswers.forEach(function (index) {
-  		userScore.appendChild(
-  			utils.createEl('div', {
-	  		innerHTML: '<p>' + this.quizData.questions[index].question + '</p> <p> Correct answer: ' + this.quizData.questions[index].choices[this.quizData.questions[index].answer] + '</p>'
+
+		if (nextQuestion) {
+			this.displayQuestionView.generateQuestion(this.quizData.currentQuestion);
+		} else {
+			this.endQuiz();
+		}
+	};
+
+	QuizCtrl.prototype.prevQuestion = function () {
+		var prev = utils.getId('prev')
+
+		this.quizData.moveBackward();
+		this.displayQuestionView.generateQuestion(this.quizData.currentQuestion);
+		this.nextView.updateText('Next')
+
+		if (this.quizData.currentQuestion === 0) {
+			utils.toggleVisibility(prev, false);
+		}
+	};
+
+	QuizCtrl.prototype.endQuiz = function () {
+		var introWrap = utils.getId('intro-wrap');
+		var outroWrap = utils.getId('outro-wrap');
+		var quizWrap = utils.getId('quiz-wrap');
+		var userScore = utils.getId('user-score');
+
+		utils.toggleVisibility(quizWrap, false);
+		utils.toggleVisibility(outroWrap, true);
+
+		for (var i = 0; i < this.quizData.correctAnswers.length; i++) {
+			if (this.quizData.userAnswers[i] === this.quizData.correctAnswers[i]) {
+				this.quizData.numCorrect++;
+			} else {
+				this.quizData.incorrectAnswers.push(i);
+			}
+		}
+		userScore.innerHTML = '<h3>You got ' + this.quizData.numCorrect + '/' + theQuestions.length + ' questions correct, that\'s ' + (Math.round(this.quizData.numCorrect / theQuestions.length * 100)) + '%</h3>'
+	  //
+	  if (this.quizData.incorrectAnswers.length > 0) {
+	  	userScore.appendChild(
+	  		utils.createEl('h3', {
+	  			innerHTML: 'Questions you missed:'
 	  	}));
-  	}, this);
-  }
+	  	this.quizData.incorrectAnswers.forEach(function (index) {
+	  		userScore.appendChild(
+	  			utils.createEl('div', {
+		  		innerHTML: '<p>' + this.quizData.questions[index].question + '</p> <p> Correct answer: ' + this.quizData.questions[index].choices[this.quizData.questions[index].answer] + '</p>'
+		  	}));
+	  	}, this);
+	  }
 
-};
+	};
 
-var q = function (data) {
-	return new QuizCtrl(data);
-};
-q(theQuestions);
-// create views for each display, hide , then trigger those  in the controller, not the way you are currently doing it
+	// var q = function (data) {
+	// 	return new QuizCtrl(data);
+	// };
+	// q(theQuestions);
+	
+	// create views for each display, hide , then trigger those  in the controller, not the way you are currently doing it
+
+	// Export to Window
+	window.app = window.app || {};
+	window.app.Controller = QuizCtrl;
+
+})(window);
