@@ -8,42 +8,45 @@
 	</head>
 	<body>
 
-		<div class="content">
+		<div class="content clearfix">
 			<section id="intro-wrap" class="intro-wrap">
 				<h1>
-		      Vanilla JS MVC Quiz
+		      Point Break Vanilla JS MVC Quiz
 		    </h1>
-				<div class="about">Nothing fancy here.  No build tools, compilers, frameworks or libraries. Just a simple quiz app in the purest form possible.<br/><br/> I wanted to allow users to go back to previous questions before submitting the quiz, and also to see which questions they had missed, and the correct answers.<br/><br/>  Click the start button when ready</div>
+		    <img class="intro-wrap__image" src="http://www.11points.com/images/pointbreakskydive.jpg">
+				<div class="about">No compilers, frameworks or libraries. Just a simple quiz app in the purest form possible honoring the best film in the history of history.<br/><br/> I wanted to allow users to go back to previous questions before submitting the quiz, and also to see which questions they had missed, and the correct answers.<br/><br/>  Click the start button when ready</div>
 				<div class="button-wrap">
 					<button id="start">Start</button>
 				</div>
 			</section>
-			<section id="quiz-wrap" class="quiz-wrap">
+			<section id="quiz-wrap" class="quiz-wrap hidden">
 				<form id="quiz">
 					<div id="generated-quiz-content">
 						<div id="quiz-question">
 						</div>
 						<ul class="quiz-wrap__list" id="radios">
 						</ul>
-						<p class='quiz-wrap__error' id='error-message'>Please select an answer!</p>
+						<p class='quiz-wrap__error hidden' id='error-message'>Please select an answer!</p>
 					</div>
 					<div class="quiz-wrap__buttons-wrap" id="buttons">
 						<button id="next" class="quiz-wrap__button quiz-wrap__button--next">Next</button>
-						<button id="prev" class="quiz-wrap__button quiz-wrap__button--prev">Prev</button>
+						<button id="prev" class="quiz-wrap__button quiz-wrap__button--prev hidden">Prev</button>
 					</div>
 				</form>
 			</section>
-			<section class="outro-wrap" id="outro-wrap">
+			<section class="outro-wrap hidden" id="outro-wrap">
 				<div class="outro-wrap__results">
-					<p>Thanks for taking the quiz.</p>
+					<h3>Thanks for taking the quiz.</h3>
 					<p id="user-score"></p>
 					</div>
 			</section>
 		</div>
-
-		<script type="text/javascript" src="model.js"></script>
-		<script type="text/javascript" src="views.js"></script>
-		<script type="text/javascript" src="controller.js"></script>
+		<script type="text/javascript" src="js/questions.js"></script>
+		<script type="text/javascript" src="js/utilities.js"></script>
+		<script type="text/javascript" src="js/model.js"></script>
+		<script type="text/javascript" src="js/view.js"></script>
+		<script type="text/javascript" src="js/controller.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
 	</body>
 
 </html>
